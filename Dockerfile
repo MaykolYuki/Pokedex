@@ -1,6 +1,6 @@
 FROM php:8.4-apache
 
-# 1. Dependencias del sistema (Agrupadas para optimizar capas)
+# 1. Dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -15,36 +15,29 @@ RUN apt-get update && apt-get install -y \
 # 2. Extensiones PHP
 RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath gd
 
-# 3. FIX MPM: Eliminamos físicamente el enlace de mpm_event para evitar el error AH00534
-# Esto asegura que Apache solo cargue mpm_prefork al iniciar.
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.load \
-    && rm -f /etc/apache2/mods-enabled/mpm_event.conf \
-    && a2enmod mpm_prefork
-
-# 4. Habilitar Rewrite para Laravel
+# 3. Habilitar Rewrite
 RUN a2enmod rewrite
 
-# 5. Instalar Composer desde la imagen oficial
+# 4. Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 6. Configuración del Proyecto
+# 5. Proyecto
 WORKDIR /var/www/html
 COPY . .
 
-# 7. Cambiar el DocumentRoot de Apache a la carpeta /public de Laravel
+# 6. Apache -> public
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' \
     /etc/apache2/sites-available/000-default.conf
 
-# 8. Dependencias de Laravel (Optimizado)
+# 7. Laravel deps
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# 9. Permisos (Crucial para Laravel)
-# Se asigna el dueño a www-data y se dan permisos de escritura a storage y cache
+# 8. Permisos
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 80
 
-# 10. Comando de inicio oficial
-CMD ["apache2-foreground"]
+# 9. LA SOLUCIÓN DEFINITIVA: 
+# Desactivamos cualquier MPM que no sea prefork justo antes de lanzar Apache
+CMD ["/bin/sh", "-c", "a2dismod mpm_event || true; a2dismod mpm_worker || true; a2enmod mpm_prefork || true; apache2-foreground"]

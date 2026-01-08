@@ -1,6 +1,6 @@
 FROM php:8.4-apache
 
-# Instalar dependencias del sistema
+# Dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -8,30 +8,32 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
-    curl
+    curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instalar extensiones PHP
+# Extensiones PHP
 RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath gd
 
-RUN a2dismod mpm_event || true \
-    && a2dismod mpm_worker || true \
+# FIX REAL MPM (SOLO ESTO, SIN ln, SIN rm manual)
+RUN a2dismod mpm_event \
     && a2enmod mpm_prefork
 
-# Habilitar rewrite
+# Rewrite
 RUN a2enmod rewrite
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copiar proyecto
+# Proyecto
 WORKDIR /var/www/html
 COPY . .
 
-# Apuntar Apache a /public
+# Apache -> public
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' \
     /etc/apache2/sites-available/000-default.conf
 
-# Instalar dependencias Laravel
+# Laravel deps
 RUN composer install --no-dev --optimize-autoloader
 
 # Permisos
@@ -40,3 +42,5 @@ RUN chown -R www-data:www-data /var/www/html \
 
 EXPOSE 80
 
+# ESTO ES OBLIGATORIO
+CMD ["apache2-foreground"]

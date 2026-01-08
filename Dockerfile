@@ -13,10 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Instalar extensiones PHP
 RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath gd
 
-# 🔥 FIX DEFINITIVO MPM
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.load \
-    && rm -f /etc/apache2/mods-enabled/mpm_worker.load \
-    && ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+RUN a2dismod mpm_event || true \
+    && a2dismod mpm_worker || true \
+    && a2enmod mpm_prefork
 
 # Habilitar rewrite
 RUN a2enmod rewrite

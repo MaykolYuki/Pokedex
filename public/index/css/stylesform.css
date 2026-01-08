@@ -1,0 +1,183 @@
+ul{
+    list-style: none;
+}
+
+ul.principal-menu{
+    margin-top: -40px;
+    margin-left: 65%;
+    position: absolute;
+    display: flex;
+    flex-direction: reverse;
+}
+
+* {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+
+
+textarea.form-control{
+    height: 150px !important;
+    resize: vertical;
+}
+
+div.header {
+    background-color: red;
+    padding: 10px;
+    text-align: left;
+    height: 105px;
+    width: auto;
+    margin: 0px;
+}
+
+.circle-pokemon1{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+    margin-top: -3.5%;
+    margin-left: 45%;
+}
+
+.circle-pokemon2 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-color: black;
+    border-radius: 50%;
+    background-color: white;
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.circle-pokemon3 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: white;
+    margin-top: 12%;
+    margin-left: 9.7%;
+}
+
+.logo {
+    top: 12px;
+    height: 60px;
+    width: auto;
+    position: relative;
+}
+
+#texto-logo {
+    top: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: left;
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.nav-menu li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 10px;
+    display: block;
+}
+
+#desplega{
+    padding: 10px 0px;
+}
+
+.nav-menu > li { 
+    float: left;
+}
+
+.nav-menu li ul{
+    background-color: red;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.nav-menu li:hover > ul{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-menu{
+    position: absolute;
+    margin-left: 900px;
+    margin-top: -50px;
+}
+
+#tipos{
+    margin-top: -20px;
+}
+
+#inicio, #pokemons, #tipos, #tipos2 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}   
+
+div.spacer-header {
+    height: 10px;
+    background-color: black;
+}
+
+div.container {
+    margin-top: 10px;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+#tittle {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #333333;
+}
+
+#watermark {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: auto;
+    opacity: 0.1;
+    rotate: -20deg;
+}
+
+button.btn-primary {
+    bottom: 0;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+footer {
+    top: 20px;
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    bottom: 100%;
+    width: 100%;
+}

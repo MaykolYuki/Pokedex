@@ -1,0 +1,173 @@
+@font-face {
+    font-family:"Pokemon Pixel Font Regular";
+    src:url("../fonts/pokemon-firered.ttf") format("truetype");
+        font-weight:normal;
+        font-style:normal;
+}
+
+ul{
+    list-style: none;
+}
+
+div.header {
+    background-color: red;
+    padding: 10px;
+    text-align: left;
+    height: auto;
+    width: auto;
+}
+
+div.description{
+    white-space: pre-line;
+}
+
+#description-title{
+    margin-bottom: -20px;
+}
+
+#texto-logo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: left;
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+.logo {
+    top: 12px;
+    height: 60px;
+    width: auto;
+    position: relative;
+}
+
+.nav-menu li a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 10px;
+    display: block;
+}
+
+.nav-menu > li {
+    float: left;
+}
+
+.nav-menu li ul{
+    background-color: red;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    z-index: 1;
+}
+
+.nav-menu li:hover > ul{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-menu{
+    position: absolute;
+    margin-left: 900px;
+    margin-top: -50px;
+}
+
+#inicio, #pokemons, #tipos {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.circle-pokemon1{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+    margin-top: -3.5%;
+    margin-left: 45%;
+}
+
+.circle-pokemon2 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-color: black;
+    border-radius: 50%;
+    background-color: white;
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.circle-pokemon3 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: white;
+    margin-top: 10%;
+    margin-left: 9.7%;
+}
+
+div.spacer-header {
+    height: 10px;
+    background-color: black;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main{
+    flex-grow: 1;
+}
+
+.logo {
+    top: 12px;
+    height: 60px;
+    width: auto;
+    position: relative;
+}
+
+div.general{
+    font-family: "Pokemon Pixel Font Regular", Arial, sans-serif;
+    padding: 10px;
+    max-width: 1400px;
+    margin: 20px auto;
+}
+
+.pokemon-image{
+    width: 65%;
+    height: 85%;
+    margin-left: 31%;
+    bottom: -30px;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+}
+
+footer {
+    margin-top: auto;
+    background-color: grey;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: auto;
+}

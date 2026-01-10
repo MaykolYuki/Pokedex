@@ -74,7 +74,7 @@ class FormController extends Controller
                 ]
             ],
             'headers' => [
-                'X-Api-Key' => config('services.romovebg.api_key'),
+                'X-Api-Key' => .env(API_KEY),
             ]
         ]);
 

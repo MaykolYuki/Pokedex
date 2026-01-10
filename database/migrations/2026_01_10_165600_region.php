@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('idRegion', 36)->primary();
             $table->string('nameRegion', 200);
             $table->integer('generation');
-            $table->string('description', 200);
+            $table->string('description', 2000);
             $table->longText('imagen_url');
             $table->timestamps();
         });

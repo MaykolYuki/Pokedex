@@ -3,6 +3,9 @@ FROM php:8.4-apache
 # 1. Dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libwebp-dev \
     libonig-dev \
     libxml2-dev \
     zip \
@@ -14,6 +17,9 @@ RUN apt-get update && apt-get install -y \
 
 # 2. Extensiones PHP
 RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath gd
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install pdo pdo_mysql mbstring bcmath gd
 
 # 3. Habilitar Rewrite
 RUN a2enmod rewrite
@@ -46,3 +52,4 @@ EXPOSE 80
 # Ejecutamos migraciones Y LUEGO lanzamos Apache
 
 CMD ["/bin/sh", "-c", "php artisan migrate --force && a2dismod mpm_event || true; a2dismod mpm_worker || true; a2enmod mpm_prefork || true; apache2-foreground"]
+

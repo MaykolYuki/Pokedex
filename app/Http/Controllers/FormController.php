@@ -74,7 +74,7 @@ class FormController extends Controller
                 ]
             ],
             'headers' => [
-                'X-Api-Key' => .env(API_KEY),
+                'X-Api-Key' => env('API_KEY'),
             ]
         ]);
 

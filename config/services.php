@@ -23,7 +23,7 @@ return [
     ],
 
     'removebg' => [
-        'api_key' => env('API_KEY'),
+        'api_key' => Gb5ZNrqMwNthGpK3QoqiF6Ew,
     ],
 
     'ses' => [

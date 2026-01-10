@@ -20,20 +20,27 @@ class FormRegionControler extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'imageRegion' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'name' => 'required',
+            'generation' => 'required',
+        ]);
+
         $region = new Region();
-        
         $region->idRegion = Str::uuid();
         $region->nameRegion = $request->name;
         $region->generation = $request->generation;
         $region->description = $request->description;
+
         $region->imagen_url = $this->imagenDecode($request->file('imageRegion'));
+        
         $region->save();
         return redirect()->route('registerRegion')->with('success', 'Región registrada exitosamente.');
     }
 
     public function imagenDecode($file){
 
-        $img = Image::make($file);
+        $img = Image::make($file->getRealPath());
 
         $img->resize(800, null, function ($constraint) {
             $constraint->aspectRatio();

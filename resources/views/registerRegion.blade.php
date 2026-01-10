@@ -56,6 +56,17 @@
 
     <form action="{{ route('registerRegion.store') }}" method="POST" enctype="multipart/form-data" class="form-container">
         @csrf
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
         <div class="form-group">
             <label for="name">Nombre de la Región:</label>
             <input type="text" id="name" name="name" class="form-control" required>

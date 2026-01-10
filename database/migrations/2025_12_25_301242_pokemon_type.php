@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pokemon_type', function (Blueprint $table) {
-            // 1. Definimos la llave primaria de la tabla pivote
-            $table->string('id_pokemon_type', 36)->primary();
+        Schema::disableForeignKeyConstraints();
 
-            // 2. Creamos las columnas PRIMERO (sin usar foreignId)
+        Schema::create('pokemon_type', function (Blueprint $table) {
+            $table->string('id_pokemon_type', 36)->primary();
             $table->string('id_pokemon', 36);
             $table->string('id_type', 36);
 
-            // 3. Definimos las relaciones después de crear las columnas
             $table->foreign('id_pokemon')
                 ->references('id_pokemon')
                 ->on('pokemon')
@@ -30,6 +28,8 @@ return new class extends Migration
                 ->on('type')
                 ->onDelete('cascade');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     public function down(): void

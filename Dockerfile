@@ -39,6 +39,11 @@ RUN echo "upload_max_filesize=20M" > /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size=25M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "memory_limit=256M" >> /usr/local/etc/php/conf.d/uploads.ini
 
+# Aumentar límites de PHP para manejar strings gigantes
+RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory.ini \
+    && echo "upload_max_filesize=30M" >> /usr/local/etc/php/conf.d/memory.ini \
+    && echo "post_max_size=35M" >> /usr/local/etc/php/conf.d/memory.ini
+
 # 7. Laravel deps
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
@@ -52,4 +57,5 @@ EXPOSE 80
 # Ejecutamos migraciones Y LUEGO lanzamos Apache
 
 CMD ["/bin/sh", "-c", "php artisan migrate --force && a2dismod mpm_event || true; a2dismod mpm_worker || true; a2enmod mpm_prefork || true; apache2-foreground"]
+
 

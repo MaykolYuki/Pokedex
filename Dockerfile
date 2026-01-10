@@ -29,6 +29,10 @@ COPY . .
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' \
     /etc/apache2/sites-available/000-default.conf
 
+RUN echo "upload_max_filesize=20M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=25M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "memory_limit=256M" >> /usr/local/etc/php/conf.d/uploads.ini
+
 # 7. Laravel deps
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
@@ -40,4 +44,5 @@ EXPOSE 80
 
 # 9. LA SOLUCIÓN DEFINITIVA: 
 # Ejecutamos migraciones Y LUEGO lanzamos Apache
+
 CMD ["/bin/sh", "-c", "php artisan migrate --force && a2dismod mpm_event || true; a2dismod mpm_worker || true; a2enmod mpm_prefork || true; apache2-foreground"]

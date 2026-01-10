@@ -39,5 +39,5 @@ RUN chown -R www-data:www-data /var/www/html \
 EXPOSE 80
 
 # 9. LA SOLUCIÓN DEFINITIVA: 
-# Desactivamos cualquier MPM que no sea prefork justo antes de lanzar Apache
-CMD ["/bin/sh", "-c", "a2dismod mpm_event || true; a2dismod mpm_worker || true; a2enmod mpm_prefork || true; apache2-foreground"]
+# Ejecutamos migraciones Y LUEGO lanzamos Apache
+CMD ["/bin/sh", "-c", "php artisan migrate --force && a2dismod mpm_event || true; a2dismod mpm_worker || true; a2enmod mpm_prefork || true; apache2-foreground"]
